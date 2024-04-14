@@ -1,13 +1,20 @@
 package business;
 
 public class Business {
-	 public static void calcularPerdaPacotes(double tamanhoArquivo, double velocidadeRede, double duracaoTransmissao) {
 
-	        System.out.println("Tempo (s)\tPerda de Pacotes (%)");
-	        for (int segundo = 0; segundo <= duracaoTransmissao; segundo++) {
-	            double tempoAtual = segundo;
-	            double perdaPacotesAtual = segundo * (1 - (tempoAtual / duracaoTransmissao));
-	            System.out.printf("%.2f\t\t%.2f\n", tempoAtual, perdaPacotesAtual);
+	 public static double calculateErlangC(double traffic, int servers, double averageServiceTime) {
+	        double rho = traffic / (servers * averageServiceTime);
+
+	        double sum = 0;
+	        double factorial = 1;
+
+	        for (int i = 0; i < servers; i++) {
+	            factorial *= i > 0 ? i : 1;
+	            sum += Math.pow(rho, i) / factorial;
 	        }
+
+	        double denominator = factorial + (Math.pow(servers * rho, servers) / (factorial * (servers - rho)));
+
+	        return Math.pow(rho, servers) / denominator * 100;
 	    }
 }

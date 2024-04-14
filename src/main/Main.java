@@ -6,20 +6,31 @@ import business.Business;
 
 public class Main {
 	
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Informe o tamanho do arquivo (em bits):");
-        double tamanhoArquivo = scanner.nextDouble();
+        System.out.print("Digite o tráfego (em Erlangs): ");
+        double traffic = scanner.nextDouble();
 
-        System.out.println("Informe a velocidade da rede (em bits por segundo):");
-        double velocidadeRede = scanner.nextDouble();
+        System.out.print("Digite o número de servidores: ");
+        int servers = scanner.nextInt();
 
-        System.out.println("Informe a duração da transmissão (em segundos):");
-        double duracaoTransmissao = scanner.nextDouble();
 
-        Business.calcularPerdaPacotes(tamanhoArquivo, velocidadeRede, duracaoTransmissao);
+        System.out.print("Digite a quantidade de intervalos de tempo: ");
+        int intervals = scanner.nextInt();
+
+        System.out.print("Digite o intervalo de tempo (em segundos): ");
+        double timeInterval = scanner.nextDouble();
+
+        System.out.println("\nResultados:");
+
+        for (int i = 1; i <= intervals; i++) {
+            double currentTime = i * timeInterval;
+            double erlangC = Business.calculateErlangC(traffic, servers, currentTime);
+            System.out.println("Tempo: " + currentTime + " segundos - Perda de pacotes (Erlang C): " + erlangC + "%");
+        }
 
         scanner.close();
     }
 }
+
